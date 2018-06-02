@@ -1,0 +1,79 @@
+<div class="container" style="margin-top: 10px;">
+  <!--Profile Pic and Description-->
+  <div class="row" *ngIf="!editable">
+
+    <div class="col-sm-4">
+      <img [src]="profile.imageUrl" *ngIf="profile.imageUrl" alt="profile.jpeg" class="img-thumbnail" style="height: 20vh; z-index: 0; border-radius: 50%; border: 4px solid rgba(155,155,155,1);">
+      <div *ngIf="!profile.imageUrl">
+        <div style="height: 30vh; border-radius: 50%; border: 4px solid rgba(155,155,155,1);" class="text-center">
+          <div style="margin-top: 7vh; font-size: 70px;">{{profile.name.slice(0,1)}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-8">
+
+      <div class="text-right">
+        <button type="button" (click)="onEdit()" class="btn btn-primary">Edit</button>
+      </div>
+      <h2>{{profile.name}}</h2>
+      <h4>{{profile.intro}}</h4>
+
+    </div>
+
+  </div>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+  <div class="row" *ngIf="editable">
+
+    <div class="col-sm-4">
+
+        <div *ngIf="profileForm.get(['editable']).value" style="position: relative">
+
+          <label for="inputButton" style="color: white;text-align: center;width: 100%;cursor: pointer;" >
+
+            <img [src]="profile.imageUrl" alt="profile.jpeg" class="img-thumbnail" style="height: 20vh; z-index: 0; top: 0
+            ; border-radius: 50%; border: 4px solid rgba(155,155,155,1);">
+
+            <p style="position: absolute;top: 8px;right: 45%;z-index: 2; background-color: rgba(255,255,255,0.3); padding:  0px 5px; border-radius: 3px;">edit</p>
+          </label>
+
+          <input id="inputButton" formControlName="imageUrl" type="file" style="visibility: hidden">
+
+        </div>
+
+    </div>
+
+    <div class="col-sm-8">
+
+
+
+        <div class="form-group row">
+          <input type="text" formControlName="name" class="form-control" placeholder="Name">
+        </div>
+
+        <div class="form-group row">
+          <textarea rows="4" formControlName="intro" style="resize: none" class="form-control" placeholder="Introduction"></textarea>
+        </div>
+
+        <div class="custom-control custom-checkbox" style="position: relative;">
+          <input type="checkbox" formControlName="editable" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1">Editable</label>
+        </div>
+
+        <br>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success btn-md">Save</button>
+          <button type="button" (click)="onCancel()" class="btn btn-danger btn-md" style="margin-left: 20px;">Cancel</button>
+        </div>
+
+
+
+    </div>
+
+  </div>
+  </form>
+
+</div>
